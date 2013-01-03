@@ -12,5 +12,7 @@ class JenkinsStatusGrabber
     response = @grabber_library.get_response @uri
     raise UnableToGrabDataFromJenkins.new("Response code #{response.code}") unless response.code == "200"
     response.body
+  rescue SocketError
+    raise UnableToGrabDataFromJenkins.new("Socket error - Possibly a problem with the configured uri for Jenkins")
   end
 end

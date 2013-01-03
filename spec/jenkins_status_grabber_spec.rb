@@ -39,4 +39,19 @@ describe JenkinsStatusGrabber, "grab_status" do
       expect { JenkinsStatusGrabber.new( grabber_library ).grab_status }.to raise_error(UnableToGrabDataFromJenkins, "Response code 404")
     end
   end
+
+  context "when the request to get the page raises an exception" do
+    class SocketError < RuntimeError
+
+    end
+
+    before do
+      a_response.stub(:code).and_raise SocketError
+    end
+
+    it "should raise an exception containing the reponse status" do
+      expect { JenkinsStatusGrabber.new( grabber_library ).grab_status }.to raise_error(UnableToGrabDataFromJenkins, "Socket error - Possibly a problem with the configured uri for Jenkins")
+    end
+  end
+  
 end
