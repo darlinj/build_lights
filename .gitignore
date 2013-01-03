@@ -2,3 +2,4 @@
 tags
 TAGS
 /.bundle
+tmp/*
