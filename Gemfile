@@ -8,3 +8,5 @@ gem 'guard-cucumber'
 gem 'guard-rspec'
 gem "rspec"
 gem 'rb-inotify'
+gem 'debugger'
+gem 'webmock'
