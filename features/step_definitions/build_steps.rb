@@ -6,9 +6,22 @@ Given /^all the builds are green$/ do
     parameter :jenkins_url
   end
   Configuration.jenkins_url = "http://www.example.com"
-  stub_request(:get, "www.example.com").to_return(:body => "<xml>some data</xml>")
+  jenkins_data = %q{
+    <xml>
+      <build>
+        <status>
+          This build is Green
+        </status>
+      </build>
+      <build>
+        <status>
+          Green stuff
+        </status>
+      </build>
+    </xml>}
+  stub_request(:get, "www.example.com").to_return(:body => jenkins_data)
 end
 
-When /^I request the build status$/ do
-  AmalgamateBuilds.new.status.should == "Green"
+Then /^I should see the amalgamated response is green$/ do
+  AmalgamateBuilds.new.status.should == "green"
 end
