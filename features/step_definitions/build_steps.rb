@@ -6,19 +6,9 @@ Given /^all the builds are green$/ do
     parameter :jenkins_url
   end
   Configuration.jenkins_url = "http://www.example.com"
-  jenkins_data = %q{
-    <xml>
-      <build>
-        <status>
-          This build is Green
-        </status>
-      </build>
-      <build>
-        <status>
-          Green stuff
-        </status>
-      </build>
-    </xml>}
+  data_file = File.open("#{File.dirname(__FILE__)}/../rss_feed_with_failed_builds")
+  jenkins_data = data_file.read
+  data_file.close
   stub_request(:get, "www.example.com").to_return(:body => jenkins_data)
 end
 
