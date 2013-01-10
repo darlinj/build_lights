@@ -5,14 +5,14 @@ describe BuildDataMunger, "amalgamate" do
     build_data = %q{
     <xml>
       <build>
-        <status>
+        <title>
           This build is Green
-        </status>
+        </title>
       </build>
       <build>
-        <status>
+        <title>
           Green stuff
-        </status>
+        </title>
       </build>
     </xml>}
     BuildDataMunger.new(build_data).amalgamate.should == "green"
@@ -22,14 +22,14 @@ describe BuildDataMunger, "amalgamate" do
     build_data = %q{
     <xml>
       <build>
-        <status>
+        <title>
           This build is Green and building 
-        </status>
+        </title>
       </build>
       <build>
-        <status>
+        <title>
           Green stuff
-        </status>
+        </title>
       </build>
     </xml>}
     BuildDataMunger.new(build_data).amalgamate.should == "green building"
@@ -39,14 +39,14 @@ describe BuildDataMunger, "amalgamate" do
     build_data = %q{
     <xml>
       <build>
-        <status>
-          This build is red
-        </status>
+        <title>
+          This build is broken
+        </title>
       </build>
       <build>
-        <status>
-          red stuff
-        </status>
+        <title>
+          broken stuff
+        </title>
       </build>
     </xml>}
     BuildDataMunger.new(build_data).amalgamate.should == "red"
@@ -56,14 +56,14 @@ describe BuildDataMunger, "amalgamate" do
     build_data = %q{
     <xml>
       <build>
-        <status>
-          This build is red and building 
-        </status>
+        <title>
+          This build is broken and building 
+        </title>
       </build>
       <build>
-        <status>
-          red stuff
-        </status>
+        <title>
+          broken stuff
+        </title>
       </build>
     </xml>}
     BuildDataMunger.new(build_data).amalgamate.should == "red building"
