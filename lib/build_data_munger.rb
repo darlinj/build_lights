@@ -12,7 +12,6 @@ class BuildDataMunger
 
   private 
   def green?
-    debugger
     if build_status_contains?("broken")
       "red"
     else

@@ -27,4 +27,3 @@ end
 Then /^I should see the amalgamated response is red$/ do
   AmalgamateBuilds.new.status.should == "red"
 end
-
