@@ -7,11 +7,11 @@ class BuildDataMunger
   end
 
   def amalgamate
-    "#{green?} #{building?}".strip
+    status
   end
 
   private 
-  def green?
+  def status
     if build_status_contains?("broken")
       "red"
     else
@@ -21,10 +21,6 @@ class BuildDataMunger
 
   def build_status_contains?(text)
     !build_status_list.select { |status| status.downcase =~ /#{text}/ }.empty?
-  end
-
-  def building?
-    "building" if build_status_contains?("building")
   end
 
   def build_status_list
