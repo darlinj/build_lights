@@ -1,4 +1,6 @@
 require_relative "configuration"
+require 'net/http'
+
 class UnableToGrabDataFromJenkins < RuntimeError
 
 end
@@ -6,7 +8,7 @@ end
 class JenkinsStatusGrabber
   def initialize grabber_library = Net::HTTP
     @grabber_library = grabber_library
-    @uri = URI.parse(Configuration.jenkins_url)
+    @uri = URI.parse(AmalgamateBuilds::Configuration.jenkins_url)
   end
   
   def grab_build_data

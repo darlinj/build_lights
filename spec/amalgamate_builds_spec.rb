@@ -1,6 +1,6 @@
 require 'amalgamate_builds'
 
-describe AmalgamateBuilds, "status" do
+describe AmalgamateBuilds::Amalgamate, "status" do
   let(:jenkins_build_grabber) { mock }
   let(:build_data_munger)     { mock("data munger", amalgamate: "green") }
 

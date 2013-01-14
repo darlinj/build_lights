@@ -2,7 +2,7 @@ require "jenkins_status_grabber"
 
 describe JenkinsStatusGrabber, "initialization" do
   it "should prepare the url" do
-    Configuration.stub(:jenkins_url).and_return("some url")
+    AmalgamateBuilds::Configuration.stub(:jenkins_url).and_return("some url")
     URI.should_receive(:parse).with("some url")
     JenkinsStatusGrabber.new( mock )
   end
@@ -13,7 +13,7 @@ describe JenkinsStatusGrabber, "grab_build_data" do
   let(:a_response) { mock("response", code: "200", body: "some text") }
 
   before do
-    Configuration.stub(:jenkins_url)
+    AmalgamateBuilds::Configuration.stub(:jenkins_url)
     URI.stub(:parse).and_return("some url")
     grabber_library.stub(:get_response).and_return(a_response)
   end
@@ -41,7 +41,7 @@ describe JenkinsStatusGrabber, "grab_build_data" do
   end
 
   context "when the request to get the page raises an exception" do
-    class SocketError < RuntimeError
+    class SocketError
 
     end
 
