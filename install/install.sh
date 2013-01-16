@@ -236,4 +236,11 @@ if ! /bin/egrep -i "build_lights" /etc/passwd &>/dev/null; then
   chown -R build_lights:build_lights /home/build_lights/.ssh
   mkdir -p /home/build_lights/www
   chown -R build_lights:build_lights /home/build_lights/www
+
+  echo "initialise git repo"
+  cd /home/build_lights/www
+  git init --shared
+  git config --bool receive.denyNonFastForwards false
+  git config receive.denyCurrentBranch ignore 
 fi
+

@@ -13,10 +13,11 @@ installation of sinatra app
 1. Create an instance of an Ubuntu server on the cloud of your choice
 2. SCP the install/install.sh script to the server
 3. Run the script as root
-4. Set up git?
-5. On your local machine set up a remote for your server
-6. git push build_lights_server master
-7. Set the Url of your jenkins server xml feed in the config/config.rb file
+5. SCP the install/post-receive file to /home/build_lights/www/.git/hooks/
+6. On your local machine set up a remote for your server
+git remote add build_lights_server build_lights@<server>:www/
+7. git push build_lights_server master
+8. Set the Url of your jenkins server xml feed in the config/config.rb file
 
 
 
