@@ -10,5 +10,6 @@ gem 'guard-rspec'
 gem 'nokogiri'
 gem "rspec"
 gem 'rb-inotify'
+gem 'thin'
 gem 'debugger'
 gem 'webmock'

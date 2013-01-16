@@ -137,10 +137,10 @@ if [ ! -f /etc/nginx/sites-available/build_lights ]; then
     listen                80;
     server_name           build_lights.nat.bt.com;
 
-    root                  /home/build_lights/www/build_lights/current/public;
+    root                  /home/build_lights/www/public;
 
-    access_log            /home/build_lights/www/build_lights/current/log/nginx.log main;
-    error_log             /home/build_lights/www/build_lights/current/log/error.log debug;
+    access_log            /home/build_lights/www/log/nginx.log main;
+    error_log             /home/build_lights/www/log/error.log debug;
 
     location / {
 
@@ -242,5 +242,7 @@ if ! /bin/egrep -i "build_lights" /etc/passwd &>/dev/null; then
   git init --shared
   git config --bool receive.denyNonFastForwards false
   git config receive.denyCurrentBranch ignore 
+
+  mkdir -p /home/build_lights/www/public
 fi
 
