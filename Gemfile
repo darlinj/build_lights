@@ -1,14 +1,14 @@
-source "https://rubygems.org"
+source 'https://rubygems.org'
 
-gem "sinatra"
-
+gem 'sinatra'
+gem 'sinatra-contrib'
 gem 'capybara'
 gem 'guard'
 gem 'guard-bundler'
 gem 'guard-cucumber'
 gem 'guard-rspec'
 gem 'nokogiri'
-gem "rspec"
+gem 'rspec'
 gem 'rb-inotify'
 gem 'thin'
 gem 'debugger'

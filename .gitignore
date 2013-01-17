@@ -4,3 +4,4 @@ TAGS
 /.bundle
 tmp/*
 log
+config/config.yml
