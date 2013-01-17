@@ -3,3 +3,4 @@ tags
 TAGS
 /.bundle
 tmp/*
+log
