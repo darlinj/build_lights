@@ -1,5 +1,4 @@
 require_relative '../../lib/amalgamate_builds'
-require 'debugger'
 
 Given /^all the builds are green$/ do
   AmalgamateBuilds::Configuration.jenkins_url = "http://www.example.com"

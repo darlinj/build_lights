@@ -10,7 +10,7 @@ class JenkinsStatusGrabber
     @grabber_library = grabber_library
     @uri = URI.parse(AmalgamateBuilds::Configuration.jenkins_url)
   end
-  
+
   def grab_build_data
     response = @grabber_library.get_response @uri
     raise UnableToGrabDataFromJenkins.new("Response code #{response.code}") unless response.code == "200"

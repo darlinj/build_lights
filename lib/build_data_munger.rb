@@ -10,7 +10,7 @@ class BuildDataMunger
     status
   end
 
-  private 
+  private
   def status
     if build_status_contains?("broken")
       "red"

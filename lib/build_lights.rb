@@ -5,7 +5,7 @@ require_relative "amalgamate_builds"
 class BuildLights < Sinatra::Base
   get "/" do
     begin
-      AmalgamateBuilds.new.status
+      AmalgamateBuilds::Amalgamate.new.status
     rescue UnableToGrabDataFromJenkins
       "Unknown"
     end
