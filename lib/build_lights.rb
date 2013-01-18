@@ -17,5 +17,7 @@ class BuildLights < Sinatra::Base
 
   configure do
     AmalgamateBuilds::Configuration.jenkins_url = settings.jenkins_url
+    AmalgamateBuilds::Configuration.proxy_url   = settings.proxy_url
+    AmalgamateBuilds::Configuration.proxy_port  = settings.proxy_port
   end
 end
