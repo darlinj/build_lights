@@ -1,1 +1,3 @@
 jenkins_url: "http://ci.nat.bt.com/rssLatest"
+proxy_url: "http://proxy.intra.bt.com/"
+proxy_port: 8080

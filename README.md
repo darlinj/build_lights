@@ -17,7 +17,9 @@ installation of sinatra app
 6. On your local machine set up a remote for your server
 git remote add build_lights_server build_lights@<server>:www/
 7. git push build_lights_server master
-8. Set the Url of your jenkins server xml feed in the config/config.rb file
+git push build_lights_server master
+8. Set the Url of your jenkins server, the proxy and the proxy port in the config/config.yml file. There is a config/config.yml.example file to copy
+9. 
 
 
 
