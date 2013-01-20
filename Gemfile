@@ -4,7 +4,7 @@ gem 'sinatra'
 gem 'sinatra-contrib'
 gem 'nokogiri'
 
-Group :development, :test do
+group :development, :test do
   gem 'capybara'
   gem 'debugger'
   gem 'guard'
