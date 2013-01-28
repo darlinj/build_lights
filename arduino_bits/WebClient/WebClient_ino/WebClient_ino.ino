@@ -13,7 +13,12 @@ EthernetClient client;
 
 char buffer[5] = "";
 boolean receiving_body = false;
-String content = "";
+String status = "";
+
+// query spacing managment
+const unsigned long request_period = 30000;
+unsigned long last_connected = 0;
+boolean http_connected = false;
 
 void setup() {
  // Open serial communications and wait for port to open:
@@ -31,6 +36,52 @@ void setup() {
   }
   // give the Ethernet shield a second to initialize:
   delay(1000);
+}
+
+void loop()
+{
+  // if there are incoming bytes available 
+  // from the server, read them and print them:
+  if (!client.connected() && (millis() - last_connected > request_period)){
+    http_connect();
+  }
+  
+  if (client.available()) {
+    char c = client.read();
+    add_to_buffer(c);
+    if(strcmp(buffer,"\r\n\r\n") == 0) {
+      receiving_body = true;
+    }
+    if(receiving_body == true){
+     status += c;
+    }
+  }
+
+  // if the server's disconnected, stop the client:
+  if (http_connected && !client.connected()) {
+    receiving_body = false;
+    http_disconnect();
+    status = "";
+  }
+}
+
+void add_to_buffer(char c) {
+  buffer[0] = buffer[1];
+  buffer[1] = buffer[2];
+  buffer[2] = buffer[3];
+  buffer[3] = c;
+}
+
+void http_disconnect(){
+    Serial.println("Finished");
+    Serial.println(status);
+    Serial.println();
+    Serial.println("disconnecting.");
+    client.stop();
+    http_connected = false;
+}
+
+void http_connect(){
   Serial.println("connecting...");
 
   // if you get a connection, report back via serial:
@@ -39,44 +90,11 @@ void setup() {
     // Make a HTTP request:
     client.println("GET / HTTP/1.0");
     client.println();
+    http_connected = true;
+    last_connected = millis();
   } 
   else {
     // kf you didn't get a connection to the server:
     Serial.println("connection failed");
   }
-}
-
-void loop()
-{
-  // if there are incoming bytes available 
-  // from the server, read them and print them:
-  if (client.available()) {
-    char c = client.read();
-    add_to_buffer(c);
-    if(strcmp(buffer,"\r\n\r\n") == 0) {
-      receiving_body = true;
-    }
-    if(receiving_body == true){
-     Serial.print(c);
-    }
-  }
-
-  // if the server's disconnected, stop the client:
-  if (!client.connected()) {
-    Serial.println();
-    Serial.println("disconnecting.");
-    client.stop();
-
-    // do nothing forevermore:
-    for(;;)
-      ;
-  }
-}
-
-
-void add_to_buffer(char c) {
-  buffer[0] = buffer[1];
-  buffer[1] = buffer[2];
-  buffer[2] = buffer[3];
-  buffer[3] = c;
 }
