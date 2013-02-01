@@ -30,13 +30,15 @@ void setup() {
 
   pinMode(red, OUTPUT);     
   pinMode(green, OUTPUT);     
- // Open serial communications and wait for port to open:
+ 
   if(debug_on) {
+    // Open serial communications and wait for port to open:
     Serial.begin(9600);
      while (!Serial) {
       ;
     }
   }
+  
   print_debug("Starting");
 
   // start the Ethernet connection:
@@ -50,8 +52,8 @@ void setup() {
   
   // give the Ethernet shield a second to initialize:
   delay(1000);
+  
   print_debug("Configured network");
-
 }
 
 void loop()
@@ -64,13 +66,10 @@ void loop()
     consume_character();
   }
 
-   light_the_lights();
+  light_the_lights();
 
-  // if the server's disconnected, stop the client:
   if (http_connected && !client.connected()) {
-    receiving_body = false;
     last_status = current_status;
-    current_status = "";
     http_disconnect();
   }
 }
@@ -111,7 +110,9 @@ void add_to_buffer(char c) {
 }
 
 void http_disconnect(){
-  print_debug("Finished");
+  receiving_body = false;
+  current_status = "";
+  
   print_debug("Status is " + last_status);
   print_debug("disconnecting.");
   client.stop();
