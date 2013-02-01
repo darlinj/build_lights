@@ -17,11 +17,12 @@ String current_status = "";
 String last_status = "other";
 
 // query spacing managment
-const unsigned long request_period = 30000;
+const unsigned long request_period = 5000;
 unsigned long last_connected = 0;
 boolean http_connected = false;
 
-//leds
+//leds - These need to be not pins 10,11, or 12 because the eternet sheild uses those. 
+//     - Also not pins 0 and 1 as these are "special"
 int green = 2;
 int red = 3;
 
@@ -77,18 +78,15 @@ void loop()
 
 void light_the_lights(){
   if(last_status == "red"){
-    Serial.print("r");
     digitalWrite(red, HIGH);
     digitalWrite(green, LOW);
   }
   else { 
     if(last_status == "green"){
-      Serial.print("g");
       digitalWrite(green, HIGH);
       digitalWrite(red, LOW);
     }
     else {
-      Serial.print("x");
       digitalWrite(green, LOW);
       digitalWrite(red, LOW);
     }
@@ -115,7 +113,7 @@ void add_to_buffer(char c) {
 
 void http_disconnect(){
     Serial.println("Finished");
-    Serial.println(last_status);
+    Serial.println("Status is " + last_status);
     Serial.println();
     Serial.println("disconnecting.");
     client.stop();
