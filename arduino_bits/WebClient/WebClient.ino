@@ -2,15 +2,15 @@
 #include <Ethernet.h>
 
 // Enter a MAC address for your controller below.
-// Newer Ethernet shields have a MAC address printed on a sticker on the shield
 byte mac[] = {  0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED };
 IPAddress server(10,63,210,232); 
 
 // Initialize the Ethernet client library
-// with the IP address and port of the server 
-// that you want to connect to (port 80 is default for HTTP):
 EthernetClient client;
 
+const boolean debug_on = false;
+
+// Parsing the web page
 char buffer[5] = "";
 boolean receiving_body = false;
 String current_status = "";
@@ -31,14 +31,14 @@ void setup() {
   pinMode(red, OUTPUT);     
   pinMode(green, OUTPUT);     
  // Open serial communications and wait for port to open:
-  Serial.begin(9600);
-   while (!Serial) {
-    ; // wait for serial port to connect. Needed for Leonardo only
+  if(debug_on) {
+    Serial.begin(9600);
+     while (!Serial) {
+      ;
+    }
   }
-  
-  Serial.println("Starting");
- 
-  Serial.println("Init network");  
+  print_debug("Starting");
+
   // start the Ethernet connection:
   if (Ethernet.begin(mac) == 0) {
 
@@ -50,8 +50,7 @@ void setup() {
   
   // give the Ethernet shield a second to initialize:
   delay(1000);
-
-  Serial.println("Configured network");
+  print_debug("Configured network");
 
 }
 
@@ -112,20 +111,22 @@ void add_to_buffer(char c) {
 }
 
 void http_disconnect(){
-    Serial.println("Finished");
-    Serial.println("Status is " + last_status);
-    Serial.println();
-    Serial.println("disconnecting.");
-    client.stop();
-    http_connected = false;
+  print_debug("Finished");
+  print_debug("Status is " + last_status);
+  print_debug("disconnecting.");
+  client.stop();
+  http_connected = false;
 }
 
 void http_connect(){
-  Serial.println("connecting...");
+  if(debug_on) {
+    Serial.println("connecting...");
+  }
 
   // if you get a connection, report back via serial:
   if (client.connect(server, 80)) {
-    Serial.println("connected");
+    print_debug("connected");
+    
     // Make a HTTP request:
     client.println("GET / HTTP/1.0");
     client.println();
@@ -136,4 +137,10 @@ void http_connect(){
     // kf you didn't get a connection to the server:
     Serial.println("connection failed");
   }
+}
+
+void print_debug( String s ){
+   if(debug_on) {
+     Serial.println(s);
+   }
 }
