@@ -34,20 +34,7 @@ exit if newrev.nil? or newrev == null_ref
 
 logfile = 'log/deploy.log'
 
-if oldrev == null_ref
-  # this is the first push; this branch was just created
-  require 'fileutils'
-  FileUtils.mkdir_p %w(log)
-  FileUtils.chmod 0775, %w(log)
-  FileUtils.touch [logfile]
-  FileUtils.chmod 0664, [logfile]
-
-  # Run bundle install for the first time
-  system %(bash -lc 'bundle install --local --deployment --without=development test 1>>#{logfile} 2>>#{logfile} ')
-else
-  # log timestamp
-  File.open(logfile, 'a') { |log| log.puts "==== #{Time.now} ====" }
-  # start the post-reset hook in background
-  system %(nohup install/post-reset #{oldrev} #{newrev} 1>>#{logfile} 2>>#{logfile} &)
-end
-
+# log timestamp
+File.open(logfile, 'a') { |log| log.puts "==== #{Time.now} ====" }
+# start the post-reset hook in background
+system %(nohup script/post-reset #{oldrev} #{newrev} 1>>#{logfile} 2>>#{logfile} &)

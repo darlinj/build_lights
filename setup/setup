@@ -1,0 +1,17 @@
+#!/bin/bash --login
+
+pushd $(dirname "$0")/..
+
+mkdir -p log
+chmod 0775 log
+
+. .rvmrc
+bundle install --deployment --without=development
+
+cp setup/files/post-receive .git/hooks
+chmod u+x .git/hooks/post-receive
+
+git config --bool receive.denyNonFastForwards false
+git config receive.denyCurrentBranch ignore
+
+popd
