@@ -10,7 +10,7 @@ The project is made up of 2 parts:
 installation of sinatra app
 ===========================
 
-1. Create an instance of an Ubuntu server on the cloud of your choice
+1. Create an instance of an Ubuntu server on the cloud
 2. SCP the install/install.sh script to the server
 3. Run the script as root
 5. SCP the install/post-receive file to /home/build_lights/www/.git/hooks/
